@@ -9,14 +9,14 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MyFrame extends JFrame {
+public class Task1 extends JFrame {
 
-    private byte[] signature;
+    private byte[] signature = new byte[] {};
 
     private final JLabel resultLabel = new JLabel();
 
 
-    public MyFrame() {
+    public Task1() {
         super("First task");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -48,8 +48,7 @@ public class MyFrame extends JFrame {
             if (ret == JFileChooser.APPROVE_OPTION) {
                 File file = fileopen.getSelectedFile();
                 try {
-                    FileInputStream inputStream = new FileInputStream(file);
-                    setSignature(inputStream.readNBytes(16));
+                    signature = Arrays.copyOf(Files.readAllBytes(Paths.get(file.getPath())), 16);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -146,7 +145,7 @@ public class MyFrame extends JFrame {
         boolean isSuitable = false;
         byte[] signature = getSignature();
         int signatureLength = signature.length;
-        int length = bytes.length - signatureLength;
+        int length = bytes.length - signatureLength + 1;
 
         for (int i = 0; i < length; i ++) {
             int k = i + signatureLength;

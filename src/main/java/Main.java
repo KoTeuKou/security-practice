@@ -6,7 +6,12 @@ class Main extends JFrame {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 JFrame.setDefaultLookAndFeelDecorated(true);
                 JDialog.setDefaultLookAndFeelDecorated(true);
-                new MyFrame();
+                new Task2Encoder();
+            });
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                JFrame.setDefaultLookAndFeelDecorated(true);
+                JDialog.setDefaultLookAndFeelDecorated(true);
+                new Task2Decoder();
             });
         }
     }
