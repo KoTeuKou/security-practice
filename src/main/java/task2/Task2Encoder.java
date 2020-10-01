@@ -1,16 +1,16 @@
 package task2;
 
+import util.FileUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.BitSet;
 import java.util.List;
-import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Task2Encoder extends JFrame {
@@ -87,17 +87,7 @@ public class Task2Encoder extends JFrame {
             }
         }
 
-        File file = new File(path + "/encodedFile.txt");
-        try {
-            if(!file.exists()){
-                file.createNewFile();
-            }
-            try (PrintWriter out = new PrintWriter(file.getAbsoluteFile())) {
-                lines.forEach(out::println);
-            }
-        } catch(IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileUtils.saveFile(path + "/encodedFile.txt", lines);
 
     }
 }

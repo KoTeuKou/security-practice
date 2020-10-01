@@ -1,9 +1,9 @@
 package task3;
 
+import util.FileUtils;
+
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,17 +40,6 @@ public class Task3Encoder extends JFrame {
             resultLines.add(newChars.stream().map(Object::toString).collect(Collectors.joining()));
         }
 
-        File file = new File(dirPath + "/encoded3TaskFile.txt");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            try (PrintWriter out = new PrintWriter(file.getAbsoluteFile())) {
-                resultLines.forEach(out::println);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileUtils.saveFile(dirPath + "/encoded3TaskFile.txt", resultLines);
     }
-
 }

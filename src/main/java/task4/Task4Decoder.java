@@ -1,14 +1,13 @@
 package task4;
 
+import util.FileUtils;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Task4Decoder {
@@ -24,9 +23,10 @@ public class Task4Decoder {
                 .collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
     }
 
-    public String decode(String path) throws IOException {
+    public void decode(String path) throws IOException {
 
-        List<String> lines = Files.readAllLines(Paths.get(path), Charset.forName("windows-1251"));
+        Path path1 = Paths.get(path);
+        List<String> lines = Files.readAllLines(path1, Charset.forName("windows-1251"));
 
         BitSet res = new BitSet();
         int numOfChangableSymbol = 0;
@@ -43,6 +43,7 @@ public class Task4Decoder {
         }
 
         byte[] bytes = res.toByteArray();
-        return new String(bytes);
+        FileUtils.saveFile(path1.getParent().toString() + "/decoded4TaskFile.txt", Collections.singletonList(new String(bytes)));
+
     }
 }

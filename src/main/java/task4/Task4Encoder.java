@@ -1,13 +1,16 @@
 package task4;
 
+import util.FileUtils;
+
 import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Task4Encoder extends JFrame {
@@ -26,36 +29,26 @@ public class Task4Encoder extends JFrame {
         List<String> resultLines = new ArrayList<>();
         BitSet codePhraseBits = BitSet.valueOf(phrase.getBytes());
 
-        int numOfChangableSymbol = 0;
+        int numOfChangeableSymbol = 0;
         for (String line : lines) {
             List<Character> newChars = new ArrayList<>();
             char[] chars = line.toCharArray();
             for (char aChar : chars) {
                 if (rusToEng.get(aChar) != null) {
-                    if (codePhraseBits.get(numOfChangableSymbol)) {
+                    if (codePhraseBits.get(numOfChangeableSymbol)) {
                         newChars.add(rusToEng.get(aChar));
                     } else {
                         newChars.add(aChar);
                     }
-                    numOfChangableSymbol++;
+                    numOfChangeableSymbol++;
                 } else {
                     newChars.add(aChar);
                 }
             }
             resultLines.add(newChars.stream().map(Object::toString).collect(Collectors.joining()));
         }
+        FileUtils.saveFile(dirPath + "/encoded4TaskFile.txt", resultLines);
 
-        File file = new File(dirPath + "/encoded4TaskFile.txt");
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            try (PrintWriter out = new PrintWriter(file.getAbsoluteFile())) {
-                resultLines.forEach(out::println);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
