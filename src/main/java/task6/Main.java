@@ -1,4 +1,4 @@
-package task5;
+package task6;
 
 import util.FileUtils;
 
@@ -25,11 +25,11 @@ public class Main {
         List<String> vigenereMatrix = getVigenereMatrix(alphabet);
         FileUtils.saveFile("./src/main/resources/vigenerMatrix.txt", vigenereMatrix);
 
-        Task5Decoder task5Decoder = new Task5Decoder();
-        Task5Encoder task5Encoder = new Task5Encoder();
+        Task6Decoder task6Decoder = new Task6Decoder();
+        Task6Encoder task6Encoder = new Task6Encoder();
 
-        task5Encoder.getVigenereEncrypt(vigenereMatrix, "кот€ра", "./src/main/resources/text_for_task5");
-        task5Decoder.vigenereDecrypt(vigenereMatrix, "кот€ра", "./src/main/resources/encoded5TaskFile.txt");
+        task6Encoder.encrypt(vigenereMatrix, "кот€ра", "./src/main/resources/testDirectory");
+        task6Decoder.decrypt(vigenereMatrix, "кот€ра", "./src/main/resources/encoded6TaskFile.cat", "C:/Users/Koteuko/Desktop");
 
     }
 }
